@@ -1,11 +1,22 @@
+import 'package:ecommerce/blocs/bloc/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/models.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final double widthFactor;
-  const ProductCard({Key? key, required this.product, this.widthFactor = 2.5}) : super(key: key);
+  final double leftPosition;
+  final bool isWishlist;
+
+  const ProductCard({
+    Key? key,
+    required this.product,
+    this.widthFactor = 2.5,
+    this.leftPosition = 5,
+    this.isWishlist = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +37,20 @@ class ProductCard extends StatelessWidget {
           ),
           Positioned(
             top: 60,
+            left: leftPosition,
             child: Container(
-              width: MediaQuery.of(context).size.width / 2.5,
+              width: widthValue - 5 - leftPosition,
               height: 80,
-              decoration: BoxDecoration(color: Colors.black.withAlpha(50)),
+              decoration: BoxDecoration(color: Colors.black.withAlpha(90)),
             ),
           ),
           Positioned(
             top: 60,
-            left: 5,
+            left: leftPosition + 5,
             child: Container(
-              width: MediaQuery.of(context).size.width / 2.5 - 10,
+              margin: const EdgeInsets.symmetric(vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              width: widthValue - 15 - leftPosition,
               height: 80,
               decoration: const BoxDecoration(color: Colors.black),
               child: Row(
@@ -59,12 +73,31 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.add_circle,
-                            color: Colors.white,
-                          ))),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.add_circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  isWishlist
+                      ? BlocBuilder<WishlistBloc, WishlistState>(
+                          builder: (context, state) {
+                            return Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                  context.read<WishlistBloc>().add(RemoveProductFromWishList(product: product));
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

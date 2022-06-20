@@ -1,4 +1,7 @@
+import 'package:ecommerce/blocs/bloc/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'config/config.dart';
 
 void main() {
@@ -10,12 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Zero To Unicorn',
-      theme: theme(),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRouter.onGenerateRoute,
-      initialRoute: '/',
+    return BlocProvider(
+      create: (context) => WishlistBloc()..add(StartWishList()),
+      child: MaterialApp(
+        title: 'Zero To Unicorn',
+        theme: theme(),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        initialRoute: '/',
+      ),
     );
   }
 }

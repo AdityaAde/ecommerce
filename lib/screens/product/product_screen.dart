@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce/blocs/bloc/wishlist_bloc.dart';
 import 'package:ecommerce/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -32,9 +34,28 @@ class ProductScreen extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(Icons.share, color: Colors.white),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite, color: Colors.white),
+              BlocBuilder<WishlistBloc, WishlistState>(
+                builder: (context, state) {
+                  return IconButton(
+                    onPressed: () {
+                      context.read<WishlistBloc>().add(AddProductToWishList(product: product));
+                      final snackBar = SnackBar(
+                          duration: const Duration(seconds: 4),
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Added to your wishlist'),
+                              InkWell(
+                                onTap: () => Navigator.pushNamed(context, '/wishlist'),
+                                child: const Text('See'),
+                              ),
+                            ],
+                          ));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    icon: const Icon(Icons.favorite, color: Colors.white),
+                  );
+                },
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.white),
