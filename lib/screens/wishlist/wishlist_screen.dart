@@ -52,7 +52,7 @@ class WishListScreen extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: const CustomNavBar(),
+      bottomNavigationBar: const HomeNavBar(),
     );
   }
 }

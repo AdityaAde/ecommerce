@@ -4,11 +4,11 @@ ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Avenir',
-    textTheme: textTheme(),
+    textTheme: _textTheme(),
   );
 }
 
-TextTheme textTheme() {
+TextTheme _textTheme() {
   return const TextTheme(
     headline1: TextStyle(
       color: Colors.black,

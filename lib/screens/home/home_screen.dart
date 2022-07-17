@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Market Place'),
-      bottomNavigationBar: const CustomNavBar(),
+      bottomNavigationBar: const HomeNavBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/models.dart';
-import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -23,57 +21,7 @@ class ProductScreen extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: CustomAppBar(title: product.name),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 70,
-          color: Colors.black,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.share, color: Colors.white),
-              ),
-              BlocBuilder<WishlistBloc, WishlistState>(
-                builder: (context, state) {
-                  return IconButton(
-                    onPressed: () {
-                      context.read<WishlistBloc>().add(AddProductToWishList(product: product));
-                      final snackBar = SnackBar(
-                          duration: const Duration(seconds: 4),
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Added to your wishlist'),
-                              InkWell(
-                                onTap: () => Navigator.pushNamed(context, '/wishlist'),
-                                child: const Text('See'),
-                              ),
-                            ],
-                          ));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                    icon: const Icon(Icons.favorite, color: Colors.white),
-                  );
-                },
-              ),
-              Builder(builder: (context) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.white),
-                  onPressed: () {
-                    context.read<CartBloc>().add(AddProduct(product));
-                    Navigator.pushNamed(context, '/cart');
-                  },
-                  child: Text(
-                    'ADD TO CART',
-                    style: textTheme.headline3,
-                  ),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: CustomNavBar(screen: routeName, product: product),
       body: ListView(children: [
         CarouselSlider(
           options: CarouselOptions(

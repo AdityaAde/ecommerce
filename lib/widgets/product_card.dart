@@ -108,6 +108,11 @@ class ProductCard extends StatelessWidget {
                             return Expanded(
                               child: IconButton(
                                 onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Added to your Cart!'),
+                                    ),
+                                  );
                                   context.read<WishlistBloc>().add(RemoveProductFromWishList(product: product));
                                 },
                                 icon: const Icon(
