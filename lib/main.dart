@@ -1,12 +1,15 @@
-import 'package:ecommerce/blocs/bloc/cart_bloc.dart';
-import 'package:ecommerce/blocs/bloc/wishlist_bloc.dart';
-import 'package:ecommerce/screens/screens.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'screens/screens.dart';
+import 'repositories/repositories.dart';
 import 'config/config.dart';
+import 'blocs/blocs.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,6 +26,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CartBloc()..add(LoadCart()),
         ),
+        BlocProvider(
+          create: (_) => CategoryBloc(
+            categoryRepository: CategoryRepository(),
+          )..add(LoadCategories()),
+        ),
+        BlocProvider(
+          create: (_) => ProductBloc(
+            productReposiotry: ProductReposiotry(),
+          )..add(LoadProducts()),
+        )
       ],
       child: MaterialApp(
         title: 'Zero To Unicorn',

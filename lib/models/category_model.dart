@@ -19,7 +19,7 @@ class Category extends Equatable {
   static Category fromSnapshot(DocumentSnapshot snap) {
     Category category = Category(
       name: snap['name'],
-      imageUrl: snap['iamgeUrl'],
+      imageUrl: snap['imageUrl'],
     );
     return category;
   }

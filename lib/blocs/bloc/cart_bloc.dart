@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce/models/cart_models.dart';
 import 'package:ecommerce/models/models.dart';

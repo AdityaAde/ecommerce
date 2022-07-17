@@ -1,6 +1,6 @@
-import 'package:ecommerce/models/models.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
 class CatalogScreen extends StatelessWidget {
@@ -17,7 +17,8 @@ class CatalogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> categoryProducts = Product.products.where((product) => product.category == category.name).toList();
+    final List<Product> categoryProducts =
+        Product.products.where((product) => product.category == category.name).toList();
     return Scaffold(
       appBar: CustomAppBar(title: category.name),
       bottomNavigationBar: const CustomNavBar(),

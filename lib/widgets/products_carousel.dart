@@ -1,6 +1,6 @@
-import 'package:ecommerce/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
+import 'product_card.dart';
 import '../models/models.dart';
 
 class ProductCarousel extends StatelessWidget {
