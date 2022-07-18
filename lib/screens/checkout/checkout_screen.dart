@@ -31,35 +31,62 @@ class CheckoutScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             if (state is CheckoutLoaded) {
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('CUSTOMER INFORMATION', style: textTheme.headline3),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(email: value));
-                    }, context, 'Email'),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(fullName: value));
-                    }, context, 'Full Name'),
-                    Text('DELIVERY INFORMATION', style: textTheme.headline3),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(address: value));
-                    }, context, 'Address'),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(city: value));
-                    }, context, 'City'),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(country: value));
-                    }, context, 'Country'),
-                    _buildTextFormField((value) {
-                      context.read<CheckoutBloc>().add(UpdateCheckout(zipCode: value));
-                    }, context, 'Zip Code'),
-                    Text('ORDER SUMMARY', style: textTheme.headline3),
-                    const OrderSummary(),
-                  ],
-                ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('CUSTOMER INFORMATION', style: textTheme.headline3),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(email: value));
+                  }, context, 'Email'),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(fullName: value));
+                  }, context, 'Full Name'),
+                  const SizedBox(height: 20),
+                  Text('DELIVERY INFORMATION', style: textTheme.headline3),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(address: value));
+                  }, context, 'Address'),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(city: value));
+                  }, context, 'City'),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(country: value));
+                  }, context, 'Country'),
+                  _buildTextFormField((value) {
+                    context.read<CheckoutBloc>().add(UpdateCheckout(zipCode: value));
+                  }, context, 'Zip Code'),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 60,
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(color: Colors.black),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Center(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'SELECT A PAYMENT METHOD',
+                              style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text('ORDER SUMMARY', style: textTheme.headline3),
+                  const OrderSummary(),
+                ],
               );
             } else {
               return const Center(child: Text('Something went wrong'));
