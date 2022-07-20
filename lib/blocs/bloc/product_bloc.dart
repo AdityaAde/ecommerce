@@ -11,10 +11,10 @@ part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final ProductReposiotry _productReposiotry;
+  final ProductRepositotry _productRepositotry;
   StreamSubscription? _productSubscription;
-  ProductBloc({required ProductReposiotry productReposiotry})
-      : _productReposiotry = productReposiotry,
+  ProductBloc({required ProductRepositotry productRepositotry})
+      : _productRepositotry = productRepositotry,
         super(ProductLoading()) {
     on<LoadProducts>(_onLoadProducts);
     on<UpdateProducts>(_onUpdateProducts);
@@ -25,7 +25,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) {
     _productSubscription?.cancel();
-    _productSubscription = _productReposiotry.getAllProduct().listen(
+    _productSubscription = _productRepositotry.getAllProduct().listen(
           (products) => add(
             UpdateProducts(products),
           ),

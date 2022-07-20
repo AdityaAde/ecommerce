@@ -25,8 +25,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => WishlistBloc()..add(StartWishList())),
         BlocProvider(create: (context) => CartBloc()..add(LoadCart())),
         BlocProvider(
+          create: (_) => PaymentBloc()
+            ..add(
+              LoadPaymentMethod(),
+            ),
+        ),
+        BlocProvider(
           create: (context) => CheckoutBloc(
             cartBloc: context.read<CartBloc>(),
+            paymentBloc: context.read<PaymentBloc>(),
             checkoutRepository: CheckoutRepository(),
           ),
         ),
@@ -37,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => ProductBloc(
-            productReposiotry: ProductReposiotry(),
+            productRepositotry: ProductRepositotry(),
           )..add(LoadProducts()),
         )
       ],
@@ -46,7 +53,7 @@ class MyApp extends StatelessWidget {
         theme: theme(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: OrderConfirmation.routeName,
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }

@@ -17,10 +17,11 @@ class CheckoutLoaded extends CheckoutState {
   final String? country;
   final String? zipCode;
   final List<Product>? products;
-  final String? subTotal;
+  final String? subtotal;
   final String? deliveryFee;
   final String? total;
   final Checkout checkout;
+  final PaymentMethod paymentMethod;
 
   CheckoutLoaded({
     this.fullName,
@@ -30,9 +31,10 @@ class CheckoutLoaded extends CheckoutState {
     this.country,
     this.zipCode,
     this.products,
-    this.subTotal,
+    this.subtotal,
     this.deliveryFee,
     this.total,
+    this.paymentMethod = PaymentMethod.google_pay,
   }) : checkout = Checkout(
           fullName: fullName,
           email: email,
@@ -41,7 +43,7 @@ class CheckoutLoaded extends CheckoutState {
           country: country,
           zipCode: zipCode,
           products: products,
-          subTotal: subTotal,
+          subtotal: subtotal,
           deliveryFee: deliveryFee,
           total: total,
         );
@@ -55,8 +57,10 @@ class CheckoutLoaded extends CheckoutState {
         country,
         zipCode,
         products,
-        subTotal,
+        subtotal,
         deliveryFee,
         total,
+        checkout,
+        paymentMethod,
       ];
 }

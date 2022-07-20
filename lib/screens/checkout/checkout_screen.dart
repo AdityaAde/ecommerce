@@ -66,7 +66,9 @@ class CheckoutScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/payment-selection');
+                            },
                             child: Text(
                               'SELECT A PAYMENT METHOD',
                               style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white),

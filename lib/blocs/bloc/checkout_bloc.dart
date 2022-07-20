@@ -1,35 +1,37 @@
-// ignore: depend_on_referenced_packages
 import 'dart:async';
 
-// ignore: depend_on_referenced_packages
-import 'package:bloc/bloc.dart';
-import 'package:ecommerce/models/cart_model.dart';
-import 'package:ecommerce/models/models.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../models/cart_model.dart';
+import '../../models/payment_model.dart';
 import '../../repositories/checkout/checkout_reposiotry.dart';
-import 'cart_bloc.dart';
+import '/blocs/blocs.dart';
+import '/models/models.dart';
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';
 
 class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   final CartBloc _cartBloc;
+  final PaymentBloc _paymentBloc;
   final CheckoutRepository _checkoutRepository;
   StreamSubscription? _cartSubscription;
+  StreamSubscription? _paymentSubscription;
   StreamSubscription? _checkoutSubscription;
 
   CheckoutBloc({
     required CartBloc cartBloc,
+    required PaymentBloc paymentBloc,
     required CheckoutRepository checkoutRepository,
   })  : _cartBloc = cartBloc,
+        _paymentBloc = paymentBloc,
         _checkoutRepository = checkoutRepository,
         super(
           cartBloc.state is CartLoaded
               ? CheckoutLoaded(
                   products: (cartBloc.state as CartLoaded).cart.products,
                   deliveryFee: (cartBloc.state as CartLoaded).cart.deliveryFeeString,
-                  subTotal: (cartBloc.state as CartLoaded).cart.subtotalString,
+                  subtotal: (cartBloc.state as CartLoaded).cart.subtotalString,
                   total: (cartBloc.state as CartLoaded).cart.totalString,
                 )
               : CheckoutLoading(),
@@ -46,6 +48,14 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         }
       },
     );
+
+    _paymentSubscription = _paymentBloc.stream.listen((state) {
+      if (state is PaymentLoaded) {
+        add(
+          UpdateCheckout(paymentMethod: state.paymentMethod),
+        );
+      }
+    });
   }
 
   void _onUpdateCheckout(
@@ -60,12 +70,13 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           fullName: event.fullName ?? state.fullName,
           products: event.cart?.products ?? state.products,
           deliveryFee: event.cart?.deliveryFeeString ?? state.deliveryFee,
-          subTotal: event.cart?.subtotalString ?? state.subTotal,
+          subtotal: event.cart?.subtotalString ?? state.subtotal,
           total: event.cart?.totalString ?? state.total,
           address: event.address ?? state.address,
           city: event.city ?? state.city,
           country: event.country ?? state.country,
           zipCode: event.zipCode ?? state.zipCode,
+          paymentMethod: event.paymentMethod ?? state.paymentMethod,
         ),
       );
     }
@@ -88,6 +99,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   @override
   Future<void> close() {
     _cartSubscription?.cancel();
+    _paymentSubscription?.cancel();
     return super.close();
   }
 }

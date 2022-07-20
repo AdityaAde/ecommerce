@@ -9,7 +9,7 @@ class Checkout extends Equatable {
   final String? country;
   final String? zipCode;
   final List<Product>? products;
-  final String? subTotal;
+  final String? subtotal;
   final String? deliveryFee;
   final String? total;
 
@@ -21,7 +21,7 @@ class Checkout extends Equatable {
     required this.country,
     required this.zipCode,
     required this.products,
-    required this.subTotal,
+    required this.subtotal,
     required this.deliveryFee,
     required this.total,
   });
@@ -35,7 +35,7 @@ class Checkout extends Equatable {
         country,
         zipCode,
         products,
-        subTotal,
+        subtotal,
         deliveryFee,
         total,
       ];
@@ -52,7 +52,7 @@ class Checkout extends Equatable {
       'customerName': fullName!,
       'customerEmail': email!,
       'products': products!.map((product) => product.name).toList(),
-      'subtotal': subTotal!,
+      'subtotal': subtotal!,
       'deliveryfee': deliveryFee!,
       'total': total!,
     };

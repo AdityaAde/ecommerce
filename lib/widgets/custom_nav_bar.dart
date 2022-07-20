@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:ecommerce/blocs/bloc/checkout_bloc.dart';
+import 'package:ecommerce/models/payment_model.dart';
+import 'package:ecommerce/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -179,26 +183,24 @@ class OrderNowNavBar extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (state is CheckoutLoaded) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  context.read<CheckoutBloc>().add(ConfirmCheckout(checkout: state.checkout));
-                  Navigator.pushNamed(context, '/order-confirmation');
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: const RoundedRectangleBorder(),
-                ),
-                child: Text(
-                  'ORDER NOW',
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              ),
-            ],
-          );
+          if (Platform.isAndroid) {
+            switch (state.paymentMethod) {
+              case PaymentMethod.google_pay:
+                return GooglePay(
+                  products: state.products!,
+                  total: state.total!,
+                );
+              case PaymentMethod.credit_card:
+                return Container();
+              default:
+                return GooglePay(
+                  products: state.products!,
+                  total: state.total!,
+                );
+            }
+          } else {
+            return const Text('Something went wrong');
+          }
         } else {
           return const Center(child: Text('Something went wrong'));
         }
