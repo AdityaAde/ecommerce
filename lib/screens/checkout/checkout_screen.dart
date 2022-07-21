@@ -36,26 +36,44 @@ class CheckoutScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('CUSTOMER INFORMATION', style: textTheme.headline3),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(email: value));
-                  }, context, 'Email'),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(fullName: value));
-                  }, context, 'Full Name'),
+                  CustomTextFormField(
+                    title: 'Email',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(email: value));
+                    },
+                  ),
+                  CustomTextFormField(
+                    title: 'Full Name',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(fullName: value));
+                    },
+                  ),
                   const SizedBox(height: 20),
                   Text('DELIVERY INFORMATION', style: textTheme.headline3),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(address: value));
-                  }, context, 'Address'),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(city: value));
-                  }, context, 'City'),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(country: value));
-                  }, context, 'Country'),
-                  _buildTextFormField((value) {
-                    context.read<CheckoutBloc>().add(UpdateCheckout(zipCode: value));
-                  }, context, 'Zip Code'),
+                  CustomTextFormField(
+                    title: 'Address',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(address: value));
+                    },
+                  ),
+                  CustomTextFormField(
+                    title: 'City',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(city: value));
+                    },
+                  ),
+                  CustomTextFormField(
+                    title: 'Country',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(country: value));
+                    },
+                  ),
+                  CustomTextFormField(
+                    title: 'Zip Code',
+                    onChanged: (value) {
+                      context.read<CheckoutBloc>().add(UpdateCheckout(zipCode: value));
+                    },
+                  ),
                   const SizedBox(height: 20),
                   Container(
                     height: 60,
@@ -95,36 +113,6 @@ class CheckoutScreen extends StatelessWidget {
             }
           },
         ),
-      ),
-    );
-  }
-
-  Padding _buildTextFormField(
-    Function(String)? onChanged,
-    BuildContext context,
-    String labelText,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 75,
-            child: Text(labelText, style: Theme.of(context).textTheme.bodyText1),
-          ),
-          Expanded(
-            child: TextFormField(
-              onChanged: onChanged,
-              decoration: const InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.only(left: 10),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
-          )
-        ],
       ),
     );
   }
