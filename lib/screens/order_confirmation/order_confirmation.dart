@@ -1,4 +1,3 @@
-import 'package:ecommerce/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -68,7 +67,7 @@ class OrderConfirmation extends StatelessWidget {
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
-                    children: [
+                    /*  children: [
                       ProductCard.summary(
                         product: Product.products[0],
                         quantity: 2,
@@ -77,7 +76,7 @@ class OrderConfirmation extends StatelessWidget {
                         product: Product.products[1],
                         quantity: 2,
                       ),
-                    ],
+                    ], */
                   ),
                 ],
               ),

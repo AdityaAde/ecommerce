@@ -60,7 +60,7 @@ class Product extends Equatable {
         description,
       ];
 
-  static List<Product> products = [
+  /* static List<Product> products = [
     const Product(
       id: '1',
       name: 'Soft Drink #1',
@@ -201,5 +201,5 @@ class Product extends Equatable {
       isRecommended: false,
       isPopular: false,
     ),
-  ];
+  ]; */
 }
