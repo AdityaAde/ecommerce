@@ -18,7 +18,7 @@ class ProductCarousel extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
-              child: ProductCard(
+              child: ProductCard.catalog(
                 product: products[index],
               ),
             );

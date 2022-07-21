@@ -21,7 +21,7 @@ class AddProductToWishList extends WishlistEvent {
 class RemoveProductFromWishList extends WishlistEvent {
   final Product product;
 
-  const RemoveProductFromWishList({required this.product});
+  const RemoveProductFromWishList(this.product);
 
   @override
   List<Object> get props => [product];

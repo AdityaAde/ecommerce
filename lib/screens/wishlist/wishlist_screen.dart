@@ -36,11 +36,8 @@ class WishListScreen extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, childAspectRatio: 2.3),
               itemBuilder: (context, index) {
                 return Center(
-                  child: ProductCard(
+                  child: ProductCard.wishlist(
                     product: state.wishList.products[index],
-                    widthFactor: 1.1,
-                    leftPosition: 100,
-                    isWishlist: true,
                   ),
                 );
               },

@@ -29,6 +29,7 @@ class CartScreen extends StatelessWidget {
               );
             }
             if (state is CartLoaded) {
+              Map cart = state.cart.productQuantity(state.cart.products);
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
@@ -57,16 +58,18 @@ class CartScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Expanded(
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            height: 400,
                             child: ListView.builder(
-                                itemCount: state.cart.productQuantity(state.cart.products).keys.length,
-                                itemBuilder: (context, index) {
-                                  return CartProductCard(
-                                    product: state.cart.productQuantity(state.cart.products).keys.elementAt(index),
-                                    textTheme: textTheme,
-                                    quantity: state.cart.productQuantity(state.cart.products).values.elementAt(index),
-                                  );
-                                }),
+                              itemCount: cart.keys.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ProductCard.cart(
+                                  product: cart.keys.elementAt(index),
+                                  quantity: cart.values.elementAt(index),
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
